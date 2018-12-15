@@ -1,12 +1,14 @@
 require 'bundler/setup'
 Bundler.require
 
-ENV['SINATRA_ENV'] ||= "development"
+ENV["SINATRA_ENV"] ||= "development"
 
-ActiveRecord::Base.establish_connection(
-  :adapter => "sqlite3",
-  :database => "db/nyc#{ENV['SINATRA_ENV']}.sqlite"
-)
+ENV['DATABASE_URL'] ||= "sqlite3://localhost/db/nycdevelopment.sqlite"
+
+
+ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
+
+
 
 require_relative "../app/controllers/application_controller.rb"
 
